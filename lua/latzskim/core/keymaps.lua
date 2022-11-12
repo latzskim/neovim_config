@@ -8,7 +8,6 @@ keymap.set("n", "x", '"_x')
 keymap.set("n", "<leader>+", "<C-a>")
 keymap.set("n", "<leader>-", "<C-x>")
 
-
 -- managing windows & splitting
 keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
@@ -42,3 +41,14 @@ keymap.set("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git co
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
 keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
 
+-- debugging
+keymap.set("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>")
+keymap.set("n", "<leader>dr", ":lua require'dap'.repl_open()<CR>")
+keymap.set("n", "<leader>od", ":lua require'dapui'.open()<CR>")
+keymap.set("n", "<leader>cd", ":lua require'dapui'.close()<CR>")
+keymap.set("n", "<leader>td", ":lua require'dapui'.toggle()<CR>")
+keymap.set("n", "<F1>", ":lua require'dap'.continue()<CR>")
+keymap.set("n", "<F2>", ":lua require'dap'.step_over()<CR>")
+keymap.set("n", "<F3>", ":lua require'dap'.step_into()<CR>")
+keymap.set("n", "<F4>", ":lua require'dap'.step_out()<CR>")
+keymap.set("n", "<F5>", ":lua require'dap-go'.debug_test()<CR>")

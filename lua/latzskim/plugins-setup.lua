@@ -63,6 +63,10 @@ return packer.startup(function(use)
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
 	use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
 
+	use("mfussenegger/nvim-dap")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use("leoluz/nvim-dap-go")
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end

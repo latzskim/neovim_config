@@ -1,5 +1,6 @@
 require("latzskim.plugins-setup")
 require("latzskim.core.options")
+require("latzskim.plugins.debugging")
 require("latzskim.core.keymaps")
 require("latzskim.core.colorscheme")
 require("latzskim.plugins.comment")
