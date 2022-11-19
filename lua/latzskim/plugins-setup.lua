@@ -67,6 +67,8 @@ return packer.startup(function(use)
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 	use("leoluz/nvim-dap-go")
 
+	use("rust-lang/rust.vim")
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end
