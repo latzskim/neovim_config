@@ -10,13 +10,25 @@ if not cmp_nvim_lsp_status then
 	return
 end
 
-
 local keymap = vim.keymap -- for conciseness
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
 	-- keybind options
 	local opts = { noremap = true, silent = true, buffer = bufnr }
+
+	if client.supports_method("textDocument/formatting") then
+		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = augroup,
+			buffer = bufnr,
+			callback = function()
+				-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+				vim.lsp.buf.format({ bufnr = bufnr })
+			end,
+		})
+	end
 
 	-- set keybinds
 	keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
@@ -31,7 +43,6 @@ local on_attach = function(client, bufnr)
 	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
 	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
 	keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
-
 end
 
 -- used to enable autocompletion (assign to every lsp server config)
@@ -51,13 +62,11 @@ lspconfig["html"].setup({
 	on_attach = on_attach,
 })
 
-
 -- configure css server
 lspconfig["cssls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
-
 
 -- configure gopls server
 lspconfig["gopls"].setup({
@@ -65,11 +74,28 @@ lspconfig["gopls"].setup({
 	on_attach = on_attach,
 })
 
-
 -- configure rust_analyzer server
 lspconfig["rust_analyzer"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+			checkOnSave = {
+				allFeatures = true,
+				command = "clippy",
+			},
+			procMacro = {
+				ignored = {
+					["async-trait"] = { "async_trait" },
+					["napi-derive"] = { "napi" },
+					["async-recursion"] = { "async_recursion" },
+				},
+			},
+		},
+	},
 })
 
 -- configure tailwindcss server
