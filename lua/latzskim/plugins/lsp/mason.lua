@@ -22,8 +22,8 @@ mason.setup()
 mason_lspconfig.setup({
 	-- list of servers for mason to install
 	ensure_installed = {
-    "gopls",
-    "rust_analyzer",
+		"gopls",
+		"rust_analyzer",
 		"tsserver",
 		"html",
 		"cssls",
@@ -40,7 +40,8 @@ mason_null_ls.setup({
 		"prettier", -- ts/js formatter
 		"stylua", -- lua formatter
 		"eslint_d", -- ts/js linter
-  --  "golangci_lint",
+		"gofumpt",
+		--  "golangci_lint",
 	},
 	-- auto-install configured formatters & linters (with null-ls)
 	automatic_installation = true,
