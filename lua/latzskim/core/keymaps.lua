@@ -52,3 +52,7 @@ keymap.set("n", "<F2>", ":lua require'dap'.step_over()<CR>")
 keymap.set("n", "<F3>", ":lua require'dap'.step_into()<CR>")
 keymap.set("n", "<F4>", ":lua require'dap'.step_out()<CR>")
 keymap.set("n", "<F5>", ":lua require'dap-go'.debug_test()<CR>")
+
+-- moveing lines
+keymap.set("n", "md", ":m+1<CR>")
+keymap.set("n", "ma", ":m-2<CR>")
